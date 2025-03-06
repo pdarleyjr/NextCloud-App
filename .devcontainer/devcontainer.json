@@ -1,0 +1,12 @@
+{
+  "name": "Nextcloud Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/ubuntu:22.04",
+  "features": {
+    "docker-in-docker": "latest"
+  },
+  "forwardPorts": [80, 443, 8080],
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  }
+}
