@@ -1,0 +1,39 @@
+Setting your default editor for GitHub Codespaces
+
+You can set your default editor for Codespaces in your personal settings page.
+In this article
+
+    Setting your default editor
+    Further reading
+
+On the settings page, you can set your editor preference so that when you create a codespace, or open an existing codespace, it is opened in your choice of:
+
+    Visual Studio Code (desktop application)
+    Visual Studio Code (web client application)
+    JupyterLab - the web interface for Project Jupyter
+
+When you create a new codespace from a template, it is always opened in the Visual Studio Code web client. You can reopen an existing codespace in any supported editor. For more information, see Opening an existing codespace.
+
+If you want to use Visual Studio Code as your default editor for GitHub Codespaces, you need to install Visual Studio Code and the GitHub Codespaces extension for Visual Studio Code. For more information, see the download page for Visual Studio Code and the GitHub Codespaces extension on the Visual Studio Code marketplace.
+Setting your default editor
+
+    In the upper-right corner of any page on GitHub, click your profile photo, then click 
+
+Settings.
+
+In the "Code, planning, and automation" section of the sidebar, click
+
+Codespaces.
+
+Under "Editor preference", select the option you want.
+
+Screenshot of the "Editor preference" options, with "Visual Studio Code for Web" selected.
+
+    If you choose Visual Studio Code, you must make sure you have installed the selected application on your local machine.
+
+    If you choose Visual Studio Code, GitHub Codespaces will automatically open in the desktop application when you next create or open a codespace.
+
+    You may need to allow access to both your browser and Visual Studio Code for it to open successfully.
+
+    If you choose JupyterLab, the JupyterLab application must be installed in the codespaces you open. The default dev container image includes JupyterLab, so codespaces created from the default image will always have JupyterLab installed. For more information about the default image, see Introduction to dev containers and the devcontainers/images repository. If you're not using the default image in your dev container configuration, you can install JupyterLab by adding the ghcr.io/devcontainers/features/python feature to your devcontainer.json file. You should include the option "installJupyterlab": true. For more information, see the README for the python feature, in the devcontainers/features repository.
+

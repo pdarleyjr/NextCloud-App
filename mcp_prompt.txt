@@ -1,0 +1,40 @@
+I need your assistance with Nextcloud app development, leveraging your MCP server capabilities to enhance your coding abilities. Please use the following MCP servers strategically throughout our session:
+
+1. GitHub MCP Server:
+   - Use this to analyze code patterns from existing Nextcloud apps
+   - Help me manage my repositories, create branches, and automate PRs
+   - Search for code examples and best practices in the Nextcloud ecosystem
+
+2. Fetch MCP Server:
+   - Retrieve up-to-date documentation from Nextcloud's official resources
+   - Convert web content into usable documentation or code references
+   - Access API specifications and developer guidelines
+
+3. Filesystem MCP Server:
+   - Analyze my Nextcloud App directory structure for optimization
+   - Manage files and directories efficiently
+   - Perform targeted searches across my codebase
+
+4. Sequential Thinking MCP Server:
+   - Break down complex development problems into logical steps
+   - Develop structured approaches to app architecture
+   - Trace through execution flows to identify potential issues
+
+5. Memory MCP Server:
+   - Maintain context about my project structure and requirements
+   - Track relationships between different components of my app
+   - Store important code patterns and decisions for future reference
+
+6. VSCode Server:
+   - Integrate with my development environment
+   - Provide workspace-aware recommendations
+   - Suggest relevant extensions for Nextcloud development
+
+7. Package Version Server:
+   - Check for outdated dependencies in my project
+   - Recommend version updates that maintain compatibility
+   - Compare versions to ensure optimal performance
+
+For my current task, I'm working on [SPECIFIC TASK - e.g., "developing a CalDAV integration for my Nextcloud app"]. Please demonstrate how you can use these MCP servers together to help me accomplish this task more efficiently, showing your thought process and explaining which server capabilities you're leveraging at each step.
+
+When providing code solutions, please ensure they follow Nextcloud's coding standards and best practices, using the GitHub and Fetch MCP servers to validate your recommendations against current documentation and community examples.

@@ -1,0 +1,28 @@
+{ "translations": {
+    "Cancel" : "বাতির",
+    "Password" : "কূটশব্দ",
+    "Info" : "Info",
+    "Settings" : "সেটিংস",
+    "Title" : "শিরোনাম",
+    "URL" : "URL",
+    "Save" : "সংরক্ষণ",
+    "Remove" : "অপসারণ",
+    "Add" : "যোগ করুন",
+    "OK" : "তথাস্তু",
+    "Delete" : "মুছে",
+    "1 Hour" : "1 Hour",
+    "2 Hours" : "2 Hours",
+    "12 Hours" : "12 Hours",
+    "Location" : "অবস্থান",
+    "Phone" : "ফোন",
+    "Deleted" : "মুছে ফেলা",
+    "Disabled" : "অকার্যকর",
+    "Warning" : "সতর্কবাণী",
+    "Important" : "গুরুত্বপূর্ণ",
+    "Advanced" : "সুচারু",
+    "Edit" : "সম্পাদনা",
+    "Back" : "পেছনে যাও",
+    "Next" : "পরবর্তী",
+    "Email" : "ইমেইল"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

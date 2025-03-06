@@ -1,0 +1,1 @@
+https://raw.githubusercontent.com/nextcloud-libraries/timezones/refs/heads/main/resources/timezones/zones.json
