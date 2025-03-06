@@ -102,6 +102,27 @@ myapp/
 3. Go to Apps → Disabled apps
 4. Find your app and click "Enable"
 
+## 📂 File Accessibility in GitHub Codespaces
+
+GitHub Codespaces only has access to files that are committed to your Git repository. To ensure files are accessible in your Codespace:
+
+1. **Commit Important Files**: Any files you need in your Codespace must be committed to your repository.
+
+2. **Directory Structure**:
+
+   - `Repos/`: Place your Nextcloud apps here
+   - `Documents/`: Place documentation and other files here
+
+3. **Automatic Setup**:
+
+   - The environment is configured to mount both `Repos/` and `Documents/` directories
+   - Empty directories will be created in the Codespace if they don't exist in the repository
+
+4. **For Local Development**:
+   - Both directories will be mounted from your local machine
+   - For Codespaces, only the files committed to the repository will be available
+   - Consider using Git LFS for large files if needed
+
 ## 🛠️ Development Tools
 
 ### Debugging with Xdebug

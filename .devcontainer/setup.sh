@@ -7,13 +7,16 @@ echo "🚀 Setting up Nextcloud app development environment in Codespaces..."
 echo "📁 Creating workspace directories..."
 mkdir -p /workspace/apps
 mkdir -p /workspace/custom_apps
+mkdir -p /workspace/Documents
 
 # Create symlinks for app development
 echo "🔗 Creating symlinks for app development..."
 if [ -d /workspace/Repos ]; then
     ln -sf /workspace/Repos /var/www/html/custom_apps
+    echo "✅ Linked /workspace/Repos to /var/www/html/custom_apps"
 else
     ln -sf /workspace/custom_apps /var/www/html/custom_apps
+    echo "✅ Linked /workspace/custom_apps to /var/www/html/custom_apps"
 fi
 
 # Set correct permissions
@@ -72,13 +75,30 @@ npm install -g yarn
 cat > /workspace/WELCOME.md << EOF
 # Welcome to your Nextcloud App Development Environment!
 
+Your development environment is now ready.
+
+## Accessing Nextcloud
 Your development environment is now ready. Here are some useful commands:
 - Access Nextcloud: Open port 8080 in your browser
 - Run OCC commands: \`occ [command]\`
 - Debug with Xdebug: Port 9003 is configured for debugging
 
+## Directory Structure
+- \`/workspace/Repos\`: Contains your Nextcloud apps (mounted as custom_apps in Nextcloud)
+- \`/workspace/Documents\`: Additional files and documentation
+
+## Important Note for GitHub Codespaces
+When using GitHub Codespaces, only files committed to your repository will be available. If you need additional files in your Codespaces environment, make sure to commit them to your repository before creating a codespace.
+
 Happy coding!
 EOF
+
+# Create a README in the Documents directory if it doesn't exist
+if [ ! -f /workspace/Documents/README.md ]; then
+    echo "📝 Creating README in Documents directory..."
+    echo "# Documents Directory\n\nThis directory is mounted from your local machine's Documents folder when running locally.\nIn GitHub Codespaces, this directory is created but initially empty." > /workspace/Documents/README.md
+    chown -R www-data:www-data /workspace/Documents
+fi
 
 echo "✅ Setup complete! Your Nextcloud app development environment is ready."
 echo "📝 See /workspace/WELCOME.md for more information."
