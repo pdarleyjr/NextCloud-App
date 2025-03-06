@@ -1,0 +1,46 @@
+# Nextcloud App .gitignore
+
+# Composer dependencies
+/vendor/
+/composer.phar
+
+# Node.js dependencies
+/node_modules/
+/npm-debug.log
+/yarn-error.log
+/package-lock.json
+/yarn.lock
+
+# Build artifacts
+/build/
+/js/
+/css/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing and coverage
+/coverage/
+.phpunit.result.cache
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Nextcloud specific
+/appinfo/signature.json
+/appinfo/certificates/
+
+# Compiled translations
+/translationfiles/
+
+# Temporary files
+/tmp/
+*.tmp
+*.bak
