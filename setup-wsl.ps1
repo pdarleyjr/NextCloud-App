@@ -30,8 +30,13 @@ if (-not $ubuntuInstalled) {
 # Copy wsl.conf to Ubuntu
 Write-Host "Configuring WSL..." -ForegroundColor Yellow
 $wslConfPath = ".devcontainer/wsl.conf"
+
+# Get current script directory instead of hardcoding the path
+$currentDir = $PSScriptRoot
+$wslCurrentDir = "/mnt/" + $currentDir.ToLower().Replace(":", "").Replace("\", "/")
+
 if (Test-Path $wslConfPath) {
-    wsl -d Ubuntu -u root cp /mnt/c/Users/Peter\ Darley/Desktop/Nextcloud\ App/.devcontainer/wsl.conf /etc/wsl.conf
+    wsl -d Ubuntu -u root cp "$wslCurrentDir/.devcontainer/wsl.conf" /etc/wsl.conf
     Write-Host "WSL configuration file copied." -ForegroundColor Green
 } else {
     Write-Host "WSL configuration file not found at $wslConfPath" -ForegroundColor Red
