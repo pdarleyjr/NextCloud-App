@@ -12,5 +12,7 @@
  * @return {string} A random hex id
  */
 export function randomId() {
-	return Math.random().toString(16).slice(2)
+	const array = new Uint32Array(1);
+	window.crypto.getRandomValues(array);
+	return array[0].toString(16);
 }
