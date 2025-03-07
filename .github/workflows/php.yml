@@ -22,14 +22,11 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.4'
-        extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, mbstring
+        extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json
         tools: composer:v2
 
     - name: Check PHP Version
       run: php -v
-
-    - name: Check Installed Extensions
-      run: php -m
 
     - name: Check Composer Version
       run: composer --version
@@ -38,35 +35,10 @@ jobs:
       run: composer validate --no-check-lock
       continue-on-error: true
 
-    - name: Clear Composer cache
-      run: composer clear-cache
-      continue-on-error: true
-
-    - name: Update dependencies
-      run: composer update --no-interaction --prefer-dist
-      env:
-        COMPOSER_MEMORY_LIMIT: 2G
-      continue-on-error: true
-
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v3
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
-
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-interaction
-      env:
-        COMPOSER_MEMORY_LIMIT: 2G
       continue-on-error: true
 
     - name: List installed packages
       run: composer show
-      continue-on-error: true
-
-    - name: Check vendor directory
-      run: ls -la vendor
       continue-on-error: true
