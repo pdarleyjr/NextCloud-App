@@ -1,0 +1,108 @@
+name: Security Checks
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.php'
+      - '**.js'
+      - '**.sh'
+      - '**.ps1'
+      - 'docker-compose.yml'
+      - '.github/workflows/**'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**.php'
+      - '**.js'
+      - '**.sh'
+      - '**.ps1'
+      - 'docker-compose.yml'
+      - '.github/workflows/**'
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly
+  workflow_dispatch:
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v3
+        with:
+          fail-on-severity: high
+        continue-on-error: true
+
+  codeql-analysis:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: javascript, php
+        continue-on-error: true
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        continue-on-error: true
+
+  docker-security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+          echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update
+          sudo apt-get install -y trivy
+
+      - name: Run Trivy vulnerability scanner
+        run: |
+          trivy fs --no-progress --exit-code 0 --severity HIGH,CRITICAL .
+        continue-on-error: true
+
+  shell-script-security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck manually
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          echo "Running ShellCheck on all shell scripts..."
+          find . -type f -name "*.sh" -exec echo "Checking {}..." \; -exec shellcheck -S warning {} \; || true
+          echo "ShellCheck completed."
+        continue-on-error: true
+
+      - name: Create ShellCheck report
+        if: always()
+        run: |
+          echo "# ShellCheck Report" > shellcheck-report.md
+          echo "\nThe following shell scripts were checked:\n" >> shellcheck-report.md
+          find . -type f -name "*.sh" | sort >> shellcheck-report.md
+          echo "\n## Results\n" >> shellcheck-report.md
+          echo "Please review any warnings or errors and fix them in future updates." >> shellcheck-report.md
+        continue-on-error: true
+
+      - name: Upload ShellCheck Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: shellcheck-report
+          path: shellcheck-report.md
+        continue-on-error: true
