@@ -21,7 +21,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: '8.1'
         extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json
         tools: composer:v2
 
@@ -37,6 +37,8 @@ jobs:
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-interaction
+      env:
+        COMPOSER_MEMORY_LIMIT: 2G
       continue-on-error: true
 
     - name: List installed packages
