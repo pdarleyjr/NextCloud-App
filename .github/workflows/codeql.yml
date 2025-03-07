@@ -1,0 +1,64 @@
+name: "CodeQL Analysis"
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - '**.php'
+      - '**.js'
+      - '**.vue'
+      - '**.css'
+      - '**.scss'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '**.php'
+      - '**.js'
+      - '**.vue'
+      - '**.css'
+      - '**.scss'
+  schedule:
+    - cron: '0 3 * * 1'  # Run at 3 AM every Monday
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript', 'php' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        queries: security-and-quality
+
+    - name: Setup PHP
+      if: matrix.language == 'php'
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, intl, gd, xml, zip, curl
+
+    - name: Setup Node.js
+      if: matrix.language == 'javascript'
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
