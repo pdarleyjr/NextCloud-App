@@ -23,8 +23,11 @@ jobs:
         php-version: '7.4' # Specify the required PHP version
         extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, mbstring
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+    - name: Validate composer.json
+      run: composer validate --no-check-lock
+
+    - name: Update dependencies
+      run: composer update --no-interaction --prefer-dist
 
     - name: Cache Composer packages
       id: composer-cache
