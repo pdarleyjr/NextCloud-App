@@ -75,6 +75,16 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+        continue-on-error: true
+
       - name: Check code style
         run: composer run-script lint
         continue-on-error: true
@@ -91,10 +101,11 @@ jobs:
         continue-on-error: true
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: code-coverage-report
           path: coverage/
+          retention-days: 7
         continue-on-error: true
 
   docker-build:
@@ -120,7 +131,8 @@ jobs:
           outputs: type=docker,dest=/tmp/nextcloud-app-image.tar
 
       - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: nextcloud-app-image
           path: /tmp/nextcloud-app-image.tar
+          retention-days: 7
