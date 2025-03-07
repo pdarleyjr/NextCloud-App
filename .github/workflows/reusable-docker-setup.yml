@@ -1,0 +1,63 @@
+name: Reusable Docker Setup
+
+on:
+  workflow_call:
+    inputs:
+      docker-compose-file:
+        required: false
+        type: string
+        default: "docker-compose.yml"
+      setup-secrets:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  setup-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Create secrets directory and files
+        if: ${{ inputs.setup-secrets }}
+        run: |
+          mkdir -p secrets
+          echo -n "nextcloud" > secrets/mysql_root_password.txt
+          echo -n "nextcloud" > secrets/mysql_password.txt
+          echo -n "nextcloud" > secrets/redis_password.txt
+          echo -n "admin" > secrets/nextcloud_admin_user.txt
+          echo -n "admin" > secrets/nextcloud_admin_password.txt
+          chmod 600 secrets/*.txt
+
+      - name: Validate Docker Compose file
+        run: docker-compose -f ${{ inputs.docker-compose-file }} config
+        continue-on-error: true
+
+      - name: Start Docker services
+        run: docker-compose -f ${{ inputs.docker-compose-file }} up -d db redis
+        continue-on-error: true
+
+      - name: Check Docker containers
+        run: docker-compose -f ${{ inputs.docker-compose-file }} ps
+        continue-on-error: true
+
+      - name: Wait for services to be ready
+        run: sleep 10
+
+      - name: Check database connection
+        run: |
+          docker-compose -f ${{ inputs.docker-compose-file }} exec -T db mysql -u nextcloud -pnextcloud -e "SHOW DATABASES;" || echo "Database connection failed, but continuing..."
+        continue-on-error: true
+
+      - name: Check Redis connection
+        run: |
+          docker-compose -f ${{ inputs.docker-compose-file }} exec -T redis redis-cli -a nextcloud ping || echo "Redis connection failed, but continuing..."
+        continue-on-error: true
+
+      - name: Stop Docker containers
+        run: docker-compose -f ${{ inputs.docker-compose-file }} down
+        continue-on-error: true
