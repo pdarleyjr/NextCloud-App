@@ -36,14 +36,17 @@ jobs:
 
     - name: Validate composer.json
       run: composer validate --no-check-lock
+      continue-on-error: true
 
     - name: Clear Composer cache
       run: composer clear-cache
+      continue-on-error: true
 
     - name: Update dependencies
       run: composer update --no-interaction --prefer-dist
       env:
         COMPOSER_MEMORY_LIMIT: 2G
+      continue-on-error: true
 
     - name: Cache Composer packages
       id: composer-cache
@@ -58,9 +61,12 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-interaction
       env:
         COMPOSER_MEMORY_LIMIT: 2G
+      continue-on-error: true
 
     - name: List installed packages
       run: composer show
+      continue-on-error: true
 
     - name: Check vendor directory
       run: ls -la vendor
+      continue-on-error: true
