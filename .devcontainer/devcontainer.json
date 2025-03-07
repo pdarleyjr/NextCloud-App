@@ -1,12 +1,11 @@
 {
   "name": "Nextcloud App Development",
-  "dockerComposeFile": "../docker-compose.yml",
-  "service": "nextcloud",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
-
-  // Configure container-specific features
-  "features": {},
-
+  
   // Forward ports for web access and debugging
   "forwardPorts": [80, 443, 8080, 9003],
   "portsAttributes": {
@@ -31,11 +30,12 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "felixfbecker.php-debug",
-        "bmewburn.vscode-intelephense-client",
         "ms-azuretools.vscode-docker",
-        "xdebug.php-debug",
         "esbenp.prettier-vscode",
+        "bmewburn.vscode-intelephense-client",
+        "octref.vetur",
+        "felixfbecker.php-debug",
+        "xdebug.php-debug",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "editorconfig.editorconfig"
