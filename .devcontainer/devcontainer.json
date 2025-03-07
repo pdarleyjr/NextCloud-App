@@ -3,18 +3,6 @@
   "dockerComposeFile": "../docker-compose.yml",
   "service": "nextcloud",
   "workspaceFolder": "/workspace",
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-
-  // Set *default* container specific settings.json values on container create.
-  "settings": {
-    "php.validate.executablePath": "/usr/local/bin/php",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true
-    },
-    "files.trimTrailingWhitespace": true,
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
 
   // Configure container-specific features
   "features": {},
@@ -37,7 +25,7 @@
   },
 
   // Run commands after container is created
-  "postCreateCommand": "mkdir -p /workspace/Documents && bash .devcontainer/setup.sh",
+  "postCreateCommand": "mkdir -p /workspace/Documents && bash .devcontainer/setup-fixed.sh",
 
   // Add VS Code extensions
   "customizations": {
@@ -51,7 +39,16 @@
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "editorconfig.editorconfig"
-      ]
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll": true
+        },
+        "files.trimTrailingWhitespace": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
     }
   }
 }

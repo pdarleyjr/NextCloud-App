@@ -43,7 +43,7 @@ services:
       retries: 3
 
   nextcloud:
-    image: nextcloud:latest
+    image: nextcloud:29
     restart: always
     ports:
       - 8080:80
