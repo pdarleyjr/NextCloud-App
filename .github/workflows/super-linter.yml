@@ -38,7 +38,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: github/super-linter@v5
+        uses: github/super-linter@v7
         env:
           VALIDATE_ALL_CODEBASE: false  # Only lint new or changed files
           DEFAULT_BRANCH: master
@@ -53,6 +53,10 @@ jobs:
           VALIDATE_BASH: true
           VALIDATE_SHELL_SHFMT: true
           VALIDATE_POWERSHELL: true
+          # Enable additional linters
+          VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_HTML: true
+          VALIDATE_MARKDOWN: true
           # Disable specific linters that might conflict with project standards
           VALIDATE_PHP_PHPCS: false  # We use php-cs-fixer instead
           # Adjust linter behavior
