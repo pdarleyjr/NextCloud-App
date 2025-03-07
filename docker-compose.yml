@@ -6,13 +6,13 @@ services:
     restart: always
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     environment:
-      - MYSQL_ROOT_PASSWORD=nextcloud
-      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/mysql_root_password
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
     volumes:
       - db:/var/lib/mysql
-      - ./docker/db/init:/docker-entrypoint-initdb.d
+      - ./docker/db/init:/docker-entrypoint-initdb.d:ro
     networks:
       - nextcloud_network
     healthcheck:
@@ -25,11 +25,14 @@ services:
           "localhost",
           "-u",
           "root",
-          "-pnextcloud",
+          "--password-file=/run/secrets/mysql_root_password",
         ]
       interval: 10s
       timeout: 5s
       retries: 3
+    secrets:
+      - mysql_root_password
+      - mysql_password
 
   redis:
     image: redis:alpine
@@ -41,12 +44,15 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    command: redis-server --requirepass ${REDIS_PASSWORD:-nextcloud}
+    secrets:
+      - redis_password
 
   nextcloud:
     image: nextcloud:29
     restart: always
     ports:
-      - 8080:80
+      - 127.0.0.1:8080:80 # Only bind to localhost for security
     depends_on:
       db:
         condition: service_healthy
@@ -59,16 +65,17 @@ services:
       - ./Documents:/workspace/Documents:cached
       - ./docker/php/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro
     environment:
-      - MYSQL_PASSWORD=nextcloud
+      - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD_FILE=/run/secrets/redis_password
       - PHP_MEMORY_LIMIT=512M
       - PHP_UPLOAD_LIMIT=512M
-      - NEXTCLOUD_ADMIN_USER=admin
-      - NEXTCLOUD_ADMIN_PASSWORD=admin
-      - "NEXTCLOUD_TRUSTED_DOMAINS=localhost nextcloud 127.0.0.1 *.github.dev *.githubpreview.dev *.app.github.dev"
+      - NEXTCLOUD_ADMIN_USER_FILE=/run/secrets/nextcloud_admin_user
+      - NEXTCLOUD_ADMIN_PASSWORD_FILE=/run/secrets/nextcloud_admin_password
+      - "NEXTCLOUD_TRUSTED_DOMAINS=localhost nextcloud 127.0.0.1"
       - OVERWRITEPROTOCOL=https
     networks:
       - nextcloud_network
@@ -76,6 +83,11 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.rule=Host(`localhost`)"
       - "traefik.http.routers.nextcloud.entrypoints=web"
+    secrets:
+      - mysql_password
+      - redis_password
+      - nextcloud_admin_user
+      - nextcloud_admin_password
 
 volumes:
   db:
@@ -85,3 +97,15 @@ volumes:
 networks:
   nextcloud_network:
     driver: bridge
+
+secrets:
+  mysql_root_password:
+    file: ./secrets/mysql_root_password.txt
+  mysql_password:
+    file: ./secrets/mysql_password.txt
+  redis_password:
+    file: ./secrets/redis_password.txt
+  nextcloud_admin_user:
+    file: ./secrets/nextcloud_admin_user.txt
+  nextcloud_admin_password:
+    file: ./secrets/nextcloud_admin_password.txt

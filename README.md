@@ -1,6 +1,6 @@
 # 🚀 Nextcloud App Development Environment
 
-This repository contains an optimized development environment for Nextcloud app development, configured to work seamlessly with GitHub Codespaces and local Docker setups.
+This repository contains an optimized and secure development environment for Nextcloud app development, configured to work seamlessly with GitHub Codespaces and local Docker setups.
 
 ## 📋 Features
 
@@ -10,6 +10,17 @@ This repository contains an optimized development environment for Nextcloud app 
 - **Performance**: Redis caching for faster development
 - **VS Code Integration**: Pre-configured extensions and settings
 - **Remote Development**: Works with GitHub Codespaces and local Docker
+- **Enhanced Security**: Secret management, secure configurations, and best practices
+
+## 🔒 Security Improvements
+
+This environment includes several security enhancements:
+
+1. **Secret Management**: Sensitive information like passwords are stored in Docker secrets
+2. **Secure Scripts**: All scripts include proper error handling, validation, and security best practices
+3. **Network Isolation**: Services bind only to localhost when possible
+4. **Secure Configurations**: Docker and Nextcloud are configured with security in mind
+5. **Permission Management**: Docker permissions are handled securely
 
 ## 🌐 Using GitHub Codespaces
 
@@ -23,7 +34,7 @@ The environment will be created and configured automatically. When it's ready:
 
 1. The Nextcloud instance will be available on port 8080
 2. You can access it by clicking on the "Ports" tab and opening port 8080
-3. Log in with username `admin` and password `admin`
+3. Log in with the credentials stored in your secrets directory
 
 ### 🔄 Stopping and Starting a Codespace
 
@@ -49,8 +60,12 @@ If you prefer to develop locally, you can use the same configuration with Docker
 
 1. Clone this repository
 2. Open the folder in VS Code
-3. When prompted, click "Reopen in Container"
-4. Alternatively, press F1, type "Remote-Containers: Open Folder in Container" and select the repository folder
+3. Run the setup script to create necessary secrets:
+   ```powershell
+   .\setup-docker-secrets.ps1
+   ```
+4. When prompted, click "Reopen in Container"
+5. Alternatively, press F1, type "Remote-Containers: Open Folder in Container" and select the repository folder
 
 If you're on Windows, you can use the included `setup-wsl.ps1` script to configure WSL properly:
 
@@ -68,6 +83,7 @@ powershell -ExecutionPolicy Bypass -File setup-wsl.ps1
 │   ├── db/                 # Database initialization scripts
 │   └── php/                # PHP configuration
 ├── Repos/                  # Your Nextcloud apps (mounted as custom_apps)
+├── secrets/                # Docker secrets (do not commit to Git)
 └── docker-compose.yml      # Docker Compose configuration
 ```
 
@@ -98,7 +114,7 @@ myapp/
 ### Enabling Your App
 
 1. Access Nextcloud at port 8080
-2. Log in as admin
+2. Log in with the admin credentials from your secrets directory
 3. Go to Apps → Disabled apps
 4. Find your app and click "Enable"
 
@@ -113,10 +129,11 @@ GitHub Codespaces only has access to files that are committed to your Git reposi
    - `Repos/`: Place your Nextcloud apps here
    - `Documents/`: Place documentation and other files here
 
-3. **Automatic Setup**:
+3. **Security Considerations**:
 
-   - The environment is configured to mount both `Repos/` and `Documents/` directories
-   - Empty directories will be created in the Codespace if they don't exist in the repository
+   - **DO NOT commit the `secrets/` directory to Git**
+   - Use `.gitignore` to exclude sensitive files
+   - Consider using environment variables in Codespaces for secrets
 
 4. **For Local Development**:
    - Both directories will be mounted from your local machine
@@ -140,9 +157,40 @@ You can access the MariaDB database using these credentials:
 - Host: `db`
 - Database: `nextcloud`
 - Username: `nextcloud`
-- Password: `nextcloud`
+- Password: Stored in `secrets/mysql_password.txt`
 
 A test database `nextcloud_test` is also available with the same credentials for running tests.
+
+## 🔐 Security Best Practices
+
+1. **Keep Secrets Secure**:
+
+   - Do not commit secrets to Git
+   - Rotate passwords regularly
+   - Use strong, unique passwords
+
+2. **Update Regularly**:
+
+   - Keep Docker images updated
+   - Update Nextcloud and apps
+   - Apply security patches promptly
+
+3. **Limit Network Exposure**:
+
+   - Use localhost bindings for development
+   - Implement proper HTTPS in production
+   - Use a reverse proxy for production deployments
+
+4. **Secure Configurations**:
+
+   - Follow the principle of least privilege
+   - Use read-only mounts when possible
+   - Validate user input in your apps
+
+5. **Regular Backups**:
+   - Implement regular backups
+   - Test restoration procedures
+   - Store backups securely
 
 ## 📚 Resources
 
@@ -150,6 +198,7 @@ A test database `nextcloud_test` is also available with the same credentials for
 - [Nextcloud App Tutorial](https://docs.nextcloud.com/server/latest/developer_manual/app_development/tutorial.html)
 - [GitHub Codespaces Documentation](https://docs.github.com/en/codespaces)
 - [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview)
+- [Docker Security Best Practices](https://docs.docker.com/develop/security-best-practices/)
 
 ## 🤝 Contributing
 

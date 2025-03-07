@@ -36,7 +36,7 @@ These scripts create a symlink from `Appointments-master` to `appointments` in t
 
 ### 2. Update Setup Script
 
-We've created an improved setup script (`setup-fixed.sh`) that automatically creates the necessary symlink during container setup. This script:
+We've created an improved setup script (`setup.sh`) that automatically creates the necessary symlink during container setup. This script:
 
 1. Creates the standard symlink from `/workspace/Repos` to `/var/www/html/custom_apps`
 2. Creates an additional symlink from `Appointments-master` to `appointments`
@@ -63,17 +63,11 @@ We've updated the docker-compose.yml file to use `nextcloud:29` instead of `next
 
 3. Refresh your Nextcloud instance and check if the app appears
 
-### Option 2: Use the Fixed Setup Script
+### Option 2: Use the Updated Setup Script
 
-1. Replace `.devcontainer/setup.sh` with `.devcontainer/setup-fixed.sh`
+1. The `.devcontainer/setup.sh` script has been updated to create the necessary symlinks
 
-2. Update `.devcontainer/devcontainer.json` to use the fixed setup script:
-
-   ```json
-   "postCreateCommand": "mkdir -p /workspace/Documents && bash .devcontainer/setup-fixed.sh",
-   ```
-
-3. Rebuild your container:
+2. Rebuild your container:
    ```bash
    docker-compose down
    docker-compose up -d

@@ -25,7 +25,7 @@
   },
 
   // Run commands after container is created
-  "postCreateCommand": "mkdir -p /workspace/Documents && bash .devcontainer/setup-fixed.sh",
+  "postCreateCommand": "mkdir -p /workspace/Documents && bash .devcontainer/setup.sh",
 
   // Add VS Code extensions
   "customizations": {

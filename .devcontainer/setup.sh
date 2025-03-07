@@ -14,6 +14,12 @@ echo "🔗 Creating symlinks for app development..."
 if [ -d /workspace/Repos ]; then
     ln -sf /workspace/Repos /var/www/html/custom_apps
     echo "✅ Linked /workspace/Repos to /var/www/html/custom_apps"
+
+    # Create symlink for the Appointments app with the correct name
+    if [ -d /workspace/Repos/Appointments-master ]; then
+        ln -sf /var/www/html/custom_apps/Appointments-master /var/www/html/custom_apps/appointments
+        echo "✅ Created symlink from Appointments-master to appointments"
+    fi
 else
     ln -sf /workspace/custom_apps /var/www/html/custom_apps
     echo "✅ Linked /workspace/custom_apps to /var/www/html/custom_apps"

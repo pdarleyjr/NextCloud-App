@@ -1,22 +1,18 @@
-# Nextcloud App .gitignore
-# Nextcloud app development .gitignore
+# Nextcloud app development environment
 
-# Dependencies
-/node_modules
-/vendor
-/bower_components
+# Docker volumes
+/data
+/db
+/nextcloud
 
-# Build files
-/build
-/dist
-/.sass-cache
+# Secrets directory
+/secrets/
 
-# Environment files
+# Logs
+*.log
+
+# Environment variables
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # IDE and editor files
 .idea/
@@ -24,59 +20,60 @@
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/launch.json
-*.sublime-project
-*.sublime-workspace
-
-# OS generated files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Composer dependencies
-/vendor/
-/composer.phar
-
 # Node.js dependencies
-/node_modules/
-/npm-debug.log
-/yarn-error.log
-/package-lock.json
-/yarn.lock
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# Build artifacts
-/build/
-/js/
-/css/
+# Composer dependencies
+vendor/
+composer.phar
 
-# IDE and editor files
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Testing and coverage
-/coverage/
-.phpunit.result.cache
-
-# Environment files
-.env
-.env.local
-.env.*.local
-
-# Nextcloud specific
-/appinfo/signature.json
-/appinfo/certificates/
-
-# Compiled translations
-/translationfiles/
+# PHP files
+*.phar
 
 # Temporary files
-/tmp/
 *.tmp
+*.temp
+*.swp
+*~
+
+# Build files
+/build/
+/dist/
+
+# Cache files
+.phpunit.result.cache
+.php_cs.cache
+
+# Backup files
 *.bak
+*.backup
+
+# Nextcloud specific
+config/config.php
+data/
+config/CAs/
+
+# Nextcloud app specific
+/apps/*/build/
+/apps/*/node_modules/
+/apps/*/vendor/
+/apps/*/.rpt2_cache/
+/apps/*/.eslintcache
+
+# Custom apps
+/custom_apps/*/build/
+/custom_apps/*/node_modules/
+/custom_apps/*/vendor/
+/custom_apps/*/.rpt2_cache/
+/custom_apps/*/.eslintcache
+
+# Workspace files
+/workspace/
+
+# Exclude specific files that should be committed
+!.gitkeep
