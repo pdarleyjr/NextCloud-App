@@ -33,7 +33,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
       - name: Dependency Review
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@v4
         with:
           fail-on-severity: high
         continue-on-error: true
@@ -49,13 +49,13 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript, php
         continue-on-error: true
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         continue-on-error: true
 
   docker-security-scan:
@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload ShellCheck Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: shellcheck-report
           path: shellcheck-report.md
