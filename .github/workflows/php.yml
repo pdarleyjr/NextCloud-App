@@ -17,6 +17,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -31,16 +33,19 @@ jobs:
     - name: Check Composer Version
       run: composer --version
 
+    - name: Check composer.json exists
+      run: ls -la
+
+    - name: Display composer.json content
+      run: cat composer.json
+
     - name: Validate composer.json
       run: composer validate --no-check-lock
-      continue-on-error: true
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction
+      run: composer install --prefer-dist --no-progress --no-interaction -vvv
       env:
         COMPOSER_MEMORY_LIMIT: 2G
-      continue-on-error: true
 
     - name: List installed packages
       run: composer show
-      continue-on-error: true
