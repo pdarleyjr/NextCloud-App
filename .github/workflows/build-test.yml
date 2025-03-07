@@ -13,6 +13,15 @@ on:
       - 'Documents/**'
   workflow_dispatch:
 
+# Limit concurrency to one workflow per branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Define default permissions as read only
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Build and Test
