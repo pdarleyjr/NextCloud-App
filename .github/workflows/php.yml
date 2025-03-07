@@ -15,13 +15,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+      uses: shivammathur/setup-php@v2.25.5
       with:
-        php-version: '7.4' # Specify the required PHP version
+        php-version: '7.4'
         extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, mbstring
+        tools: composer:v2
+
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Check Installed Extensions
+      run: php -m
+
+    - name: Check Composer Version
+      run: composer --version
 
     - name: Validate composer.json
       run: composer validate --no-check-lock
@@ -43,3 +54,6 @@ jobs:
 
     - name: List installed packages
       run: composer show
+
+    - name: Check vendor directory
+      run: ls -la vendor
