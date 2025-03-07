@@ -13,14 +13,22 @@ on:
       - 'Documents/**'
   workflow_dispatch:
 
+# Limit concurrency to one workflow per branch/PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Define permissions needed for Super-Linter
+permissions:
+  contents: read
+  packages: read
+  statuses: write
+
 jobs:
   lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      statuses: write
+    timeout-minutes: 30
 
     steps:
       - name: Checkout Code
