@@ -1,5 +1,12 @@
 # 🚀 Nextcloud App Development Environment
 
+[![Build and Test](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/build-test.yml/badge.svg)](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/build-test.yml)
+[![CodeQL Analysis](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/codeql.yml/badge.svg)](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/codeql.yml)
+[![Super-Linter](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/super-linter.yml/badge.svg)](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/super-linter.yml)
+[![PHP Composer](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/php.yml/badge.svg)](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/php.yml)
+[![Security Checks](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/security.yml/badge.svg)](https://github.com/pdarleyjr/NextCloud-App/actions/workflows/security.yml)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 This repository contains an optimized and secure development environment for Nextcloud app development, configured to work seamlessly with GitHub Codespaces and local Docker setups.
 
 ## 📋 Features
@@ -11,6 +18,30 @@ This repository contains an optimized and secure development environment for Nex
 - **VS Code Integration**: Pre-configured extensions and settings
 - **Remote Development**: Works with GitHub Codespaces and local Docker
 - **Enhanced Security**: Secret management, secure configurations, and best practices
+- **CI/CD Integration**: Automated testing, linting, and security scanning with GitHub Actions
+- **Dependency Management**: Automated dependency updates with Dependabot
+
+## 🔄 CI/CD Pipeline
+
+This repository includes a comprehensive CI/CD pipeline using GitHub Actions:
+
+### Automated Workflows
+
+- **Build and Test**: Runs PHP unit tests, checks code style, and builds Docker images
+- **CodeQL Analysis**: Scans code for security vulnerabilities and quality issues
+- **Super-Linter**: Performs comprehensive linting across multiple languages and formats
+- **PHP Composer**: Validates and installs PHP dependencies
+- **Security Checks**: Runs security scans including dependency review and Docker image scanning
+
+### Dependency Management
+
+Dependabot is configured to automatically create pull requests for:
+
+- PHP dependencies (Composer)
+- GitHub Actions workflows
+- Docker images
+
+This ensures your project stays up-to-date with the latest security patches and improvements.
 
 ## 🔒 Security Improvements
 
@@ -21,6 +52,8 @@ This environment includes several security enhancements:
 3. **Network Isolation**: Services bind only to localhost when possible
 4. **Secure Configurations**: Docker and Nextcloud are configured with security in mind
 5. **Permission Management**: Docker permissions are handled securely
+6. **Automated Security Scanning**: Regular security checks via GitHub Actions
+7. **Dependency Monitoring**: Automatic security updates via Dependabot
 
 ## 🌐 Using GitHub Codespaces
 
@@ -78,6 +111,9 @@ powershell -ExecutionPolicy Bypass -File setup-wsl.ps1
 ```
 .
 ├── .devcontainer/          # Dev container configuration
+├── .github/                # GitHub Actions workflows and configurations
+│   ├── workflows/          # CI/CD workflow definitions
+│   └── dependabot.yml      # Dependabot configuration
 ├── .vscode/                # VS Code settings
 ├── docker/                 # Docker configuration files
 │   ├── db/                 # Database initialization scripts
@@ -174,6 +210,7 @@ A test database `nextcloud_test` is also available with the same credentials for
    - Keep Docker images updated
    - Update Nextcloud and apps
    - Apply security patches promptly
+   - Review Dependabot pull requests regularly
 
 3. **Limit Network Exposure**:
 
@@ -192,11 +229,18 @@ A test database `nextcloud_test` is also available with the same credentials for
    - Test restoration procedures
    - Store backups securely
 
+6. **CI/CD Security**:
+   - Review GitHub Actions workflows for security issues
+   - Use specific versions of actions rather than `@master`
+   - Implement proper secret management in CI/CD
+
 ## 📚 Resources
 
 - [Nextcloud Developer Documentation](https://docs.nextcloud.com/server/latest/developer_manual/)
 - [Nextcloud App Tutorial](https://docs.nextcloud.com/server/latest/developer_manual/app_development/tutorial.html)
 - [GitHub Codespaces Documentation](https://docs.github.com/en/codespaces)
+- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+- [Dependabot Documentation](https://docs.github.com/en/code-security/dependabot)
 - [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview)
 - [Docker Security Best Practices](https://docs.docker.com/develop/security-best-practices/)
 
