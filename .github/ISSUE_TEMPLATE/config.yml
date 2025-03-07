@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Nextcloud App Documentation
+    url: https://github.com/pdarleyjr/NextCloud-App/blob/master/README.md
+    about: Please check the documentation before creating an issue
+  - name: Nextcloud Community Forum
+    url: https://help.nextcloud.com/
+    about: Please ask general Nextcloud questions here
+  - name: Security Issue
+    url: https://github.com/pdarleyjr/NextCloud-App/security/policy
+    about: Please report security vulnerabilities directly to the maintainers
