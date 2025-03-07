@@ -5,7 +5,13 @@
   "workspaceFolder": "/workspace",
 
   // Configure container-specific features
-  "features": {},
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true
+    }
+  },
 
   // Forward ports for web access and debugging
   "forwardPorts": [80, 443, 8080, 9003],
@@ -38,7 +44,17 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "redhat.vscode-yaml",
+        "streetsidesoftware.code-spell-checker",
+        "mikestead.dotenv",
+        "ikappas.phpcs",
+        "neilbrayfield.php-docblocker",
+        "mehedidracula.php-namespace-resolver",
+        "ms-vscode.live-server",
+        "mhutchie.git-graph"
       ],
       "settings": {
         "php.validate.executablePath": "/usr/local/bin/php",
@@ -47,7 +63,25 @@
           "source.fixAll": true
         },
         "files.trimTrailingWhitespace": true,
-        "terminal.integrated.defaultProfile.linux": "bash"
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "git.autofetch": true,
+        "git.enableSmartCommit": true,
+        "github-actions.workflows.pinned.workflows": [
+          ".github/workflows/build-test.yml",
+          ".github/workflows/codeql.yml",
+          ".github/workflows/super-linter.yml"
+        ],
+        "yaml.schemas": {
+          "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml",
+          "https://json.schemastore.org/github-action.json": ".github/actions/*/action.yml"
+        },
+        "cSpell.words": [
+          "nextcloud",
+          "xdebug",
+          "codespaces",
+          "phpunit",
+          "mariadb"
+        ]
       }
     }
   }
