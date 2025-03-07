@@ -1,0 +1,38 @@
+name: "CodeQL Configuration"
+
+# Specify additional security queries
+queries:
+  # Run all default queries
+  - uses: security-and-quality
+  # Add additional security queries for PHP
+  - uses: security-extended
+
+# Configure query filters to reduce noise
+query-filters:
+  # Exclude queries that are known to have high false positive rates
+  - exclude:
+      id: js/xss-through-dom
+      reason: "High false positive rate in this codebase"
+
+# Configure paths to analyze or exclude
+paths:
+  # Analyze all code in these directories
+  - lib
+  - templates
+  - js
+  - css
+  # Exclude test files and third-party libraries
+paths-ignore:
+  - '**/node_modules/**'
+  - '**/vendor/**'
+  - '**/tests/**'
+  - '**/*.test.js'
+  - '**/*.spec.js'
+  - '**/*.min.js'
+
+# Specify additional options
+options:
+  # Maximum memory to use for CodeQL analysis
+  max-memory: 4096
+  # Timeout for queries in seconds
+  timeout: 1800
