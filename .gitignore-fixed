@@ -1,0 +1,98 @@
+# Nextcloud App Development Environment .gitignore
+
+# Docker secrets directory - contains sensitive information
+/secrets/
+*.txt.secret
+*.key
+*.pem
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database files
+*.sqlite
+*.db
+*.sql
+
+# Temporary files
+/temp-github-repo/
+/tmp/
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Logs
+/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+/node_modules/
+/vendor/
+/.pnp/
+.pnp.js
+
+# Build directories
+/build/
+/dist/
+/out/
+
+# Cache directories
+/.cache/
+/.npm/
+/.eslintcache
+/.stylelintcache
+
+# Editor directories and files
+/.idea/
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Nextcloud specific
+/data/
+/config/
+/apps/
+/nextcloud.log
+/data-*/
+
+# PHP specific
+/composer.phar
+/.phpunit.result.cache
+
+# JavaScript specific
+/.yarn/
+/.pnp.*
+/coverage/
+/.nyc_output/
+
+# Security reports
+/security-reports/
+/vulnerability-reports/
+insecure-random-report.md
+
+# Backup files
+*.bak
+*.backup
+*~
+*.old
+*.orig
