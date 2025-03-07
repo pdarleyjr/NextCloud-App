@@ -2,7 +2,7 @@
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import md5 from 'md5'
+import crypto from 'crypto'
 
 /**
  * This is copied from nextcloud-vue for now, until it is exposed upstream.
@@ -12,9 +12,9 @@ export const uidToColor = (uid) => {
 	// Normalize hash
 	let hash = uid.toLowerCase()
 
-	// Already a md5 hash?
+	// Already a SHA-256 hash?
 	if (hash.match(/^([0-9a-f]{4}-?){8}$/) === null) {
-		hash = md5(hash)
+		hash = crypto.createHash('sha256').update(hash).digest('hex')
 	}
 
 	hash = hash.replace(/[^0-9a-f]/g, '')
