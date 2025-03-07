@@ -1,0 +1,32 @@
+{
+    "name": "pdarleyjr/nextcloud-app",
+    "description": "Nextcloud App Development Environment",
+    "type": "project",
+    "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "pdarleyjr",
+            "email": "pdarleyjr@example.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "vimeo/psalm": "^4.0"
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "fix": "php-cs-fixer fix",
+        "psalm": "psalm --no-cache",
+        "test": "phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    }
+}
