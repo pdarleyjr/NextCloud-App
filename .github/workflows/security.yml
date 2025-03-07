@@ -29,6 +29,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        env:
+          ACTIONS_STEP_DEBUG: true
 
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
@@ -43,6 +45,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        env:
+          ACTIONS_STEP_DEBUG: true
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v2
@@ -59,6 +63,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        env:
+          ACTIONS_STEP_DEBUG: true
 
       - name: Install Trivy
         run: |
@@ -68,6 +74,7 @@ jobs:
           echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
           sudo apt-get update
           sudo apt-get install -y trivy
+        continue-on-error: true
 
       - name: Run Trivy vulnerability scanner
         run: |
@@ -79,6 +86,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        env:
+          ACTIONS_STEP_DEBUG: true
 
       - name: Run ShellCheck manually
         run: |
