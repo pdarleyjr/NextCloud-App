@@ -1,0 +1,28 @@
+{
+  "name": "nextcloud-app",
+  "version": "1.0.0",
+  "description": "Nextcloud App Development Environment",
+  "private": true,
+  "scripts": {
+    "build": "echo \"No build script specified\" && exit 0",
+    "test": "echo \"No test script specified\" && exit 0",
+    "lint": "echo \"No lint script specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdarleyjr/NextCloud-App.git"
+  },
+  "keywords": [
+    "nextcloud",
+    "app",
+    "development"
+  ],
+  "author": "pdarleyjr",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/pdarleyjr/NextCloud-App/issues"
+  },
+  "homepage": "https://github.com/pdarleyjr/NextCloud-App#readme",
+  "dependencies": {},
+  "devDependencies": {}
+}
