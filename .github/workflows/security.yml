@@ -26,6 +26,8 @@ on:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    # Only run on pull requests (not on pushes)
+    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -49,13 +51,14 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript, php
+          config-file: ./.github/codeql/codeql-config.yml
         continue-on-error: true
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         continue-on-error: true
 
   docker-security-scan:
@@ -110,7 +113,7 @@ jobs:
 
       - name: Upload ShellCheck Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: shellcheck-report
           path: shellcheck-report.md
