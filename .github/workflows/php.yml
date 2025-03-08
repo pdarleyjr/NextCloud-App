@@ -33,17 +33,27 @@ jobs:
     - name: Check Composer Version
       run: composer --version
 
-    - name: Check composer.json exists
-      run: ls -la
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-    - name: Display composer.json content
-      run: cat composer.json
+    - name: Cache Composer dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-
+
+    - name: Update composer.json
+      run: |
+        # Update php-cs-fixer to latest version
+        composer update friendsofphp/php-cs-fixer --no-interaction
 
     - name: Validate composer.json
       run: composer validate --no-check-lock
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-interaction -vvv
+      run: composer install --prefer-dist --no-progress --no-interaction
       env:
         COMPOSER_MEMORY_LIMIT: 2G
 
