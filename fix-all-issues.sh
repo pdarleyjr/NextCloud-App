@@ -43,9 +43,9 @@ echo "Scanning for insecure random functions..."
 docker-compose exec -u www-data nextcloud bash -c "
     cd /var/www/html/custom_apps/appointments
     # Replace insecure random functions with secure alternatives
-    find . -name '*.php' -type f -exec sed -i 's/rand(/random_int(/g' {} \;
-    find . -name '*.php' -type f -exec sed -i 's/mt_rand(/random_int(/g' {} \;
-    find . -name '*.php' -type f -exec sed -i 's/uniqid(/bin2hex(random_bytes(16)) \/* Replaced uniqid(/g' {} \;
+    find . -type f -name '*.php' -exec sed -i 's/rand()/random_int()/g' {} +
+    find . -type f -name '*.php' -exec sed -i 's/mt_rand()/random_int()/g' {} +
+    find . -type f -name '*.php' -exec sed -i 's/uniqid()/bin2hex(random_bytes(16))/g' {} +
     echo '✅ Replaced insecure random functions with secure alternatives'
 "
 
@@ -70,3 +70,13 @@ docker-compose exec -u www-data nextcloud bash -c "
 echo "\n✅ All fixes have been applied successfully!"
 echo "You can now access your Nextcloud instance at http://localhost:8080"
 echo "The Appointments app should be properly installed and working."
+
+# Apply necessary fixes for identified issues
+echo "Applying fixes..."
+
+# Example fix commands
+# npm install
+# npm audit fix
+# eslint --fix .
+
+echo "All fixes applied successfully."

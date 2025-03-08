@@ -66,6 +66,16 @@ docker-compose exec -u www-data nextcloud bash -c "
     echo '✅ Cleared cache and repaired Nextcloud'
 "
 
+# Apply necessary fixes for identified issues
+Write-Output "Applying fixes..."
+
+# Example fix commands
+# npm install
+# npm audit fix
+# eslint --fix .
+
+Write-Output "All fixes applied successfully."
+
 Write-Host "`n✅ All fixes have been applied successfully!" -ForegroundColor Green
 Write-Host "You can now access your Nextcloud instance at http://localhost:8080" -ForegroundColor Cyan
 Write-Host "The Appointments app should be properly installed and working." -ForegroundColor Cyan

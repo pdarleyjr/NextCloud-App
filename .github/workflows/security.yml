@@ -118,3 +118,24 @@ jobs:
           name: shellcheck-report
           path: shellcheck-report.md
         continue-on-error: true
+
+name: "Security Scan"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run security scan
+        run: |
+          docker run --rm -v $(pwd):/app shiftleft/scan scan --src /app
