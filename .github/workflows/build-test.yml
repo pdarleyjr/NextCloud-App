@@ -72,6 +72,11 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Update composer dependencies
+        run: |
+          # Update php-cs-fixer to latest version
+          composer update friendsofphp/php-cs-fixer --no-interaction
+
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
