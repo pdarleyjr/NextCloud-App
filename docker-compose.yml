@@ -64,6 +64,7 @@ services:
       - ./Repos:/workspace/Repos:cached
       - ./Documents:/workspace/Documents:cached
       - ./docker/php/php-custom.ini:/usr/local/etc/php/conf.d/php-custom.ini:ro
+      - ./docker/entrypoint-fix-app.sh:/entrypoint-fix-app.sh:ro
     environment:
       - MYSQL_PASSWORD_FILE=/run/secrets/mysql_password
       - MYSQL_DATABASE=nextcloud
@@ -88,6 +89,8 @@ services:
       - redis_password
       - nextcloud_admin_user
       - nextcloud_admin_password
+    # Run our fix script after container initialization
+    entrypoint: ["/bin/sh", "-c", "chmod +x /entrypoint-fix-app.sh && /entrypoint.sh apache2-foreground & sleep 30 && /entrypoint-fix-app.sh"]
 
 volumes:
   db:
